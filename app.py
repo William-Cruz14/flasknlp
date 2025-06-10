@@ -4,6 +4,7 @@ import torch
 import os
 import requests
 import gdown
+from decouple import config
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -66,4 +67,5 @@ if __name__ == '__main__':
     if not os.path.exists(model_path):
         print(f"Erro: Pasta do modelo '{model_path}' não encontrada. Certifique-se de que os arquivos do modelo foram descompactados e estão no local correto.")
     else:
-        app.run(debug=True, port=5000)
+        port = int(config('PORT', 5000))
+        app.run(host='0.0.0.0', port=port)
